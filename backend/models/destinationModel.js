@@ -15,7 +15,8 @@ const destinationSchema = new mongoose.Schema({
       "waterfall",
       "park",
       "monastery",
-      "hotspring"
+      "hotspring",
+      "lake"
     ],
   },
   parking: { type: Boolean, default: true },

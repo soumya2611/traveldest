@@ -56,9 +56,6 @@ const updateDestination = async (req, res) => {
     const { name, location, district, description, category, parking } = req.body;
     console.log(req.body)
     
-    if (!name || !location || !description || !district) {
-      return res.json({ success: false, message: "missing details" });
-    }
     const updatedData = await destinationModel.findByIdAndUpdate(
       destinationId,
       {
