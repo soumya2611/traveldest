@@ -1,14 +1,12 @@
 import destinationModel from "../models/destinationModel.js";
 import { v2 as cloudinary } from "cloudinary";
 
-
 //adding """"""""""""""""""""""destination"""""""""""""""""""""";
 
 const addDestination = async (req, res) => {
   try {
     const { name, location, district, description, category, parking } =
       req.body;
-
     if (!name || !location || !description || !district) {
       return res.json({ success: false, message: "missing details" });
     }
@@ -50,6 +48,37 @@ const addDestination = async (req, res) => {
     console.log(error);
   }
 };
+//----------UPDATE DESTINATION-------------//
+const updateDestination = async (req, res) => {
+  try {
+    const destinationId = req.params.id;
+    //console.log(destinationId)
+    const { name, location, district, description, category, parking } = req.body;
+    console.log(req.body)
+    
+    if (!name || !location || !description || !district) {
+      return res.json({ success: false, message: "missing details" });
+    }
+    const updatedData = await destinationModel.findByIdAndUpdate(
+      destinationId,
+      {
+        name,
+        location,
+        district,
+        description,
+        category,
+        parking,
+      },
+      { new: true }// although it update but it res the old data so new:true used to get new updated data
+    );
+    //console.log(updatedData);
+    return res.json({ success: true, updatedData });
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+    console.log(error);
+  }
+};
+
 //getiing """""""""""""""""""all DESTINATION""""""""""""""""""" for home page
 
 const getDestination = async (req, res) => {
@@ -59,6 +88,22 @@ const getDestination = async (req, res) => {
       return res.json({ success: false, message: "no destination found" });
     }
     return res.json({ success: true, data });
+  } catch (error) {
+    console.log(error);
+    return res.json({ success: false, message: error.message });
+  }
+};
+
+// get data through id
+const getDestinationById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const data = await destinationModel.find({
+      _id: id
+    });
+    //console.log(data)
+    res.json({ success: true, data });
+   
   } catch (error) {
     console.log(error);
     return res.json({ success: false, message: error.message });
@@ -84,33 +129,37 @@ const getDestinationByName = async (req, res) => {
   try {
     const name = req.params.name;
     const data = await destinationModel.find({
-      name  : { $regex: new RegExp(name, "i") },
+      name: { $regex: new RegExp(name, "i") },
     });
     //console.log(data)
-    res.json({success:true,data})
+    res.json({ success: true, data });
+    console.log("dest ID--"+data[0]._id)
   } catch (error) {
     console.log(error);
     return res.json({ success: false, message: error.message });
   }
-}
+};
+
 //DESTINATION BY NAME OF THE """" CATEGORY"""" of the place
 const getDestinationByCategory = async (req, res) => {
   try {
     const category = req.params.category;
     const data = await destinationModel.find({
-      category  : { $regex: new RegExp(category, "i") },
+      category: { $regex: new RegExp(category, "i") },
     });
     //console.log(data)
-    res.json({success:true,data})
+    res.json({ success: true, data });
   } catch (error) {
     console.log(error);
     return res.json({ success: false, message: error.message });
   }
-}
+};
 export {
   addDestination,
+  updateDestination,
   getDestination,
   getDestinationByDistrict,
   getDestinationByName,
   getDestinationByCategory,
+  getDestinationById
 };
