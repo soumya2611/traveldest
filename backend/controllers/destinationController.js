@@ -53,9 +53,10 @@ const updateDestination = async (req, res) => {
   try {
     const destinationId = req.params.id;
     //console.log(destinationId)
-    const { name, location, district, description, category, parking } = req.body;
-    console.log(req.body)
-    
+    const { name, location, district, description, category, parking } =
+      req.body;
+    console.log(req.body);
+
     const updatedData = await destinationModel.findByIdAndUpdate(
       destinationId,
       {
@@ -66,7 +67,7 @@ const updateDestination = async (req, res) => {
         category,
         parking,
       },
-      { new: true }// although it update but it res the old data so new:true used to get new updated data
+      { new: true } // although it update but it res the old data so new:true used to get new updated data
     );
     //console.log(updatedData);
     return res.json({ success: true, updatedData });
@@ -76,6 +77,20 @@ const updateDestination = async (req, res) => {
   }
 };
 
+//-----------DELETE DESTINATION---------//
+const deleteDestination = async (req, res) => {
+  try {
+    const id = req.params.id;
+    if (!id) {
+      return res.json({ success: false, message: "no id" });
+    }
+    await destinationModel.findByIdAndDelete(id);
+    return res.json({ success: true, message: "deleted" });
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+    console.log(error);
+  }
+};
 //getiing """""""""""""""""""all DESTINATION""""""""""""""""""" for home page
 
 const getDestination = async (req, res) => {
@@ -96,11 +111,10 @@ const getDestinationById = async (req, res) => {
   try {
     const id = req.params.id;
     const data = await destinationModel.find({
-      _id: id
+      _id: id,
     });
     //console.log(data)
     res.json({ success: true, data });
-   
   } catch (error) {
     console.log(error);
     return res.json({ success: false, message: error.message });
@@ -124,13 +138,12 @@ const getDestinationByDistrict = async (req, res) => {
 //DESTINATION BY NAME OF THE """"Name"""" of the place
 const getDestinationByName = async (req, res) => {
   try {
-    const name = req.params.name;
+    const {name} = req.params;
     const data = await destinationModel.find({
       name: { $regex: new RegExp(name, "i") },
     });
-    //console.log(data)
-    res.json({ success: true, data });
-    console.log("dest ID--"+data[0]._id)
+    
+    return res.json({ success: true, data });
   } catch (error) {
     console.log(error);
     return res.json({ success: false, message: error.message });
@@ -158,5 +171,6 @@ export {
   getDestinationByDistrict,
   getDestinationByName,
   getDestinationByCategory,
-  getDestinationById
+  getDestinationById,
+  deleteDestination,
 };
