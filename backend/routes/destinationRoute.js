@@ -7,6 +7,7 @@ import {
   getDestinationByCategory,
   updateDestination,
   getDestinationById,
+  deleteDestination,
 } from "../controllers/destinationController.js";
 import upload from '../middlewares/multer.js';
 
@@ -20,11 +21,12 @@ destinationRouter.post(
 destinationRouter.post('/update-destination/:id',upload.none(),updateDestination)
 destinationRouter.get("/all-detstination", getDestination)
 // data by district
-destinationRouter.get("/destination-district/:district", getDestinationByDistrict)
+destinationRouter.get("/district/:district", getDestinationByDistrict)
 //data by Destination Name
 destinationRouter.get("/destination-name/:name", getDestinationByName);
 destinationRouter.get("/:id", getDestinationById);
-destinationRouter.get("/destination-category/:category", getDestinationByCategory);
+destinationRouter.delete("/:id", deleteDestination);
+destinationRouter.get("/category/:category", getDestinationByCategory);
 
 
 export default destinationRouter;
