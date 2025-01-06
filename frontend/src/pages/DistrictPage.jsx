@@ -5,11 +5,11 @@ import axios from "axios";
 const DistrictPage = () => {
   const { district } = useParams(); // Get the category from the URL
   const [items, setItems] = useState([]);
-
+ const backendUrl = import.meta.env.VITE_BACKEND_URL;
   useEffect(() => {
     // Fetch items of the selected category from the API
     axios
-      .get(`http://localhost:4000/api/destination/district/${district}`)
+      .get(`${backendUrl}/api/destination/district/${district}`)
       .then((response) => {
         setItems(response.data.data); // Store items of the selected category
       })

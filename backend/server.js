@@ -16,7 +16,7 @@ app.use(cors())
 
 //API ENDPOINTs
 app.get('/', (req, res) => {
-    res.send("api working")
+    res.send("welcome to travel dest api ❤️")
 })
 
 app.use('/api/destination', destinationRouter)

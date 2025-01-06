@@ -8,14 +8,14 @@ const SearchResultsPage = () => {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+const backendUrl=import.meta.env.VITE_BACKEND_URL
   useEffect(() => {
     const fetchResults = async () => {
       try {
         setLoading(true);
         setError(null);
         const response = await axios.get(
-          `http://localhost:4000/api/destination/destination-name/${query}`
+          `${backendUrl}/api/destination/destination-name/${query}`
         ); // Replace with your actual API endpoint
         setResults(response.data.data);
       } catch (err) {

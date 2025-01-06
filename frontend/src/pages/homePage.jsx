@@ -3,10 +3,10 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 const HomePage = () => {
+   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [data, setData] = useState([]);
-  const backendAPI = "http://localhost:4000/api/destination/all-detstination";
+  const backendAPI = `${backendUrl}/api/destination/all-detstination`;
 
-  // Fetch data from the backend API
   useEffect(() => {
     axios
       .get(backendAPI)

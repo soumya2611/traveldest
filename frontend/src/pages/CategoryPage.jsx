@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
 const CategoryPage = () => {
+   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const { category } = useParams(); // Get the category from the URL
   const [items, setItems] = useState([]);
 
@@ -10,7 +11,7 @@ const CategoryPage = () => {
     // Fetch items of the selected category from the API
     axios
       .get(
-        `http://localhost:4000/api/destination/category/${category}`
+        `${backendUrl}/api/destination/category/${category}`
       )
       .then((response) => {
         setItems(response.data.data); // Store items of the selected category

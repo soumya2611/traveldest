@@ -3,6 +3,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 const DetailPage = () => {
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  console.log(backendUrl)
   const { id } = useParams();
   const [item, setItem] = useState(null);
   const navigate = useNavigate();
@@ -10,7 +12,7 @@ const DetailPage = () => {
   useEffect(() => {
     // Fetch the data from the backend
     axios
-      .get(`http://localhost:4000/api/destination/${id}`)
+      .get(`${backendUrl}/api/destination/${id}`)
       .then((response) => {
         setItem(response.data.data[0]);
       })
