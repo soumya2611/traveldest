@@ -38,8 +38,8 @@ const Navbar = () => {
     <nav className="bg-gray-600 p-4">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo Section */}
-        <div className="text-white text-2xl font-bold">
-          <Link to="/">My Odisha</Link>
+        <div className="text-white hover:text-zinc-950 text-2xl font-bold">
+          <Link to="/">Mo Odisha</Link>
         </div>
 
         {/* Navigation Links */}
@@ -47,14 +47,14 @@ const Navbar = () => {
           {/* Home Link */}
           <Link
             to="/"
-            className="text-white hover:text-gray-300 transition duration-200"
+            className="text-white hover:text-zinc-950  transition duration-200"
           >
             Home
           </Link>
            {/* Find by District Dropdown */}
           <div className="relative">
             <button
-              className="text-white hover:text-gray-300 transition duration-200"
+              className="text-white hover:text-zinc-950  transition duration-200"
               onClick={() => handleDropdownClick("district")}
             >
               Find by District
@@ -284,7 +284,7 @@ const Navbar = () => {
           {/* Find by Type Dropdown */}
           <div className="relative">
             <button
-              className="text-white hover:text-gray-300 transition duration-200"
+              className="text-white hover:text-zinc-950  transition duration-200"
               onClick={() => handleDropdownClick("type")}
             >
               Find by Type
